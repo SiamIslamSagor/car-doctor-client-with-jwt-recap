@@ -1,22 +1,34 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import BookingsRow from "./BookingsRow";
-import axios from "axios";
+// import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
-  const [bookings, setBookings] = useState({});
-  // find user by using query emaili
-  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  const [bookings, setBookings] = useState([]);
+  // custom hooks for axios
+  const axiosSecure = useAxiosSecure();
+  // find user by using query email
+  // const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  const url = `/bookings?email=${user?.email}`;
 
   useEffect(() => {
-    axios.get(url, { withCredentials: true }).then(res => {
+    // using custom hook
+    axiosSecure.get(url).then(res => {
       setBookings(res.data);
     });
+
+    // using axios
+    // axios.get(url, { withCredentials: true }).then(res => {
+    //   setBookings(res.data);
+    // });
+
+    // using fetch
     // fetch(url, { credentials: "include" })
     //   .then(res => res.json())
     //   .then(data => setBookings(data));
-  }, [url]);
+  }, [url, axiosSecure]);
 
   const handleDelete = id => {
     const proceed = confirm("Are you sure to delete this item?");

@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 // import { AuthContext } from "../../Provider/AuthProvider";
 // import { useContext } from "react";
@@ -7,9 +7,9 @@ import useAuthContext from "../../hooks/useAuthContext";
 const Login = () => {
   const { signInUser } = useAuthContext();
   // const { signInUser } = useContext(AuthContext);
-  const location = useLocation();
+  // const location = useLocation();
   // const navigate = useNavigate();
-  console.log(location);
+  // console.log(location);
 
   const handleLogin = e => {
     e.preventDefault();
